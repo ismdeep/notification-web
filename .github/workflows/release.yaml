@@ -1,6 +1,8 @@
 name: Release
 on:
   push:
+  schedule:
+    - cron: '9 9 * * *'
 
 jobs:
   Release:
