@@ -6,16 +6,10 @@
     <el-menu-item index="/">
       <router-link to="/">Home</router-link>
     </el-menu-item>
-    <el-menu-item index="/blogs">
-      <router-link to="/blogs">Blogs</router-link>
-    </el-menu-item>
-    <el-menu-item index="/about">
-      <router-link to="/about">About</router-link>
-    </el-menu-item>
 
     <div class="flex-grow" />
     <el-menu-item index="/admin">
-      <router-link to="/admin">Admin</router-link>
+        Admin
     </el-menu-item>
   </el-menu>
   <el-container>

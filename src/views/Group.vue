@@ -14,13 +14,16 @@
     -H 'X-Token: {token}' \
     -H 'Content-Type: application/json' \
     --data '{"subject": "{subject}", "content": "{content}", "type": "text/plain", "to": ["{email}"]}'</pre>
+        <el-table :data="tokens">
+          <el-table-column prop="TokenName" label="Name"></el-table-column>
+          <el-table-column prop="Token" label="Token"></el-table-column>
+        </el-table>
       </div>
     </div>
     <div>
       <el-table :data="mails">
         <el-table-column prop="id" label="ID"></el-table-column>
         <el-table-column prop="subject" label="Subject"></el-table-column>
-        <el-table-column prop="content" label="Content"></el-table-column>
         <el-table-column prop="created_at" label="Created At"></el-table-column>
         <el-table-column label="Status">
           <template #default="scope">
@@ -47,6 +50,7 @@ export default {
     return {
       group_id: 0,
       group: {},
+      tokens: [],
       mails: [],
       show_token: false,
       show_help_flag: false,
@@ -62,6 +66,11 @@ export default {
     load_group_mails() {
       http.get(`/api/v1/groups/${this.$data.group_id}/mails`).then((res) => {
         this.$data.mails = res
+      })
+    },
+    load_group_tokens() {
+      http.get(`/api/v1/groups/${this.$data.group_id}/tokens`).then((res) => {
+        this.$data.tokens = res
       })
     },
     generate_token() {
@@ -86,6 +95,7 @@ export default {
     this.$data.group_id = +route.params.id
     this.load_group_info()
     this.load_group_mails()
+    this.load_group_tokens()
   }
 }
 </script>

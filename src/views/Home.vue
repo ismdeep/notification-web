@@ -1,7 +1,7 @@
 <template>
   <base-layout>
-    <el-row :gutter="12">
-      <el-col :span="8" v-for="group in groups">
+    <el-row>
+      <el-col v-for="group in groups">
         <el-card class="box-card">
           <template #header>
             <div class="card-header">
@@ -9,15 +9,17 @@
               <el-link type="primary" :href="`/group/${group.ID}`">Detail</el-link>
             </div>
           </template>
+          <el-col>
+            <el-statistic title="Sent" :value="123"></el-statistic>
+          </el-col>
         </el-card>
       </el-col>
     </el-row>
 
-
     <div v-if="loading">
       <el-skeleton :rows="5" animated/>
     </div>
-    <div v-if="!loading || groups === []" :hidden="unread_blogs_loading">
+    <div v-if="!groups || groups.length <= 0" :hidden="loading">
       <el-empty description="No Data"/>
     </div>
   </base-layout>
@@ -41,7 +43,7 @@ export default {
   },
   methods: {
     loadData() {
-      this.$data.unread_blogs_loading = true
+      this.$data.loading = true
       http.get(`/api/v1/groups`).then((data) => {
         this.$data.groups = data
         this.$data.loading = false
@@ -57,11 +59,6 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-}
-
-.post-source-text {
-  color: lightgray;
-  font-size: 10px;
 }
 
 .card-header {
