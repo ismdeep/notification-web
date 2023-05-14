@@ -38,7 +38,7 @@ jobs:
         run: |
           set -eux
           npm install -g pnpm
-          pnpm i
+          pnpm install --no-frozen-lockfile
           pnpm run build
 
       - name: Docker release
